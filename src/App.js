@@ -2,7 +2,7 @@ import './App.css';
 import InputText from './components/InputText.js'
 import SelectGender from './components/SelectGender.js'
 import RadioButton from './components/RadioButton.js'
-import Date from './components/Date.js'
+import DateField from './components/DateField.js'
 import React from 'react';
 import FileUpload from './components/FileUpload';
 import Range from './components/Range.js';
@@ -66,7 +66,7 @@ class App extends React.Component {
           <RadioButton value="no" label="No" isSelected={this.state.selected_value === "no"} handleChange={this.radioButtonChangeHandler} />
         </label>
         <br />
-        <Date selected_date={this.state.selected_date} handleDate={this.handleDate} />
+        <DateField selected_date={this.state.selected_date} handleDate={this.handleDate} />
         <br />
         <FileUpload />
         <br />

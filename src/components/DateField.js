@@ -2,7 +2,7 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-class Date extends React.Component {
+class DateField extends React.Component {
     render() {
         return (
             <div>
@@ -25,4 +25,4 @@ class Date extends React.Component {
     } 
 }
 
-export default Date
+export default DateField
