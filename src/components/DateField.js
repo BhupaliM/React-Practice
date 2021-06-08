@@ -14,6 +14,7 @@ class DateField extends React.Component {
                 showYearDropdown
                 scrollableYearDropdown
                 className="form-group"
+                required
             />
         );
     } 

@@ -1,114 +1,196 @@
 import './App.css';
+
+import React from 'react';
+
 import InputText from './components/InputText.js'
-import EmailField from './components/EmailField.js'
 import SelectField from './components/SelectField.js'
 import RadioButton from './components/RadioButton.js'
 import DateField from './components/DateField.js'
-import React from 'react';
 import FileUpload from './components/FileUpload';
+import PasswordField from './components/PasswordField.js'
 import Range from './components/Range.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleInput = this.handleInput.bind(this)
-    this.handleEmail = this.handleEmail.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-    this.radioButtonChangeHandler = this.radioButtonChangeHandler.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.updateRange = this.updateRange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
-      name: "",
-      email: "",
-      value: "",
-      selected_date: null,
-      selected_value: null,
-      selected_range: ""
+      fields: {
+        input: "",
+        email: "",
+        selected_value: "",
+        selected_file: "",
+        selected_date: null,
+        selected_radio_value: null,
+        password: "",
+        cpassword: "",
+        selected_range: null
+      },
+      formErrors: {
+        input: '',
+        email: '',
+        selected_value: '',
+        selected_file: '',
+        selected_date: '',
+        selected_radio_value: '',
+        password: '',
+        cpassword: '',
+        selected_range: ''
+      }
     }
-    this.baseState = this.state 
   }
 
+  handleValidation() {
+    let isFormValid = true
+    let fields = this.state.fields
+    let errors = {}
+
+    if(!fields['selected_radio_value']) {
+      isFormValid = false
+      errors['selected_radio_value'] = "This field is required"
+    }
+
+    if(!fields['email'].match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      isFormValid = false
+      errors['email'] = "Email is not valid"
+    }
+
+    if(fields['password'].length < 8) {
+      isFormValid = false
+      errors['password'] = "Password is too short"
+    }
+
+    if(fields['cpassword'] !== fields['password']) {
+      isFormValid = false
+      errors['cpassword'] = "Password does not match"
+    }
+
+    this.setState({formErrors: errors})
+    return isFormValid
+  }
   handleSubmit(e) {
     e.preventDefault()
-    alert("Form submitted successfully");
-    this.setState(this.baseState)
+    if(!this.handleValidation()) {
+      alert("Form has errors");
+    }
+    else {
+      console.log(this.state)
+      alert("Form submitted successfully");
+      let reset_fields = {
+        input: "",
+        email: "",
+        selected_value: "",
+        selected_file: "",
+        selected_date: null,
+        selected_radio_value: null,
+        password: "",
+        cpassword: "",
+        selected_range: null
+      }
+      this.setState({fields: reset_fields})
+    }
   }
 
   handleInput(e) {
-    this.setState({name: e.target.value})
-  }
-
-  handleEmail(e) {
-    this.setState({email: e.target.value})
-  }
-
-  handleSelect(e) {
-    this.setState({value: e.target.value})
-  }
-
-  radioButtonChangeHandler(e) {
-    this.setState({selected_value: e.target.value})
+    let fields = this.state.fields
+    let isFile = e.target.type === "file"
+    fields[e.target.name] = isFile ? e.target.files[0] : e.target.value
+    this.setState({fields: fields});
   }
 
   handleDate(date) {
-    this.setState({selected_date: date})
+    let fields = this.state.fields
+    fields['selected_date'] = date
+    this.setState({fields: fields})
   }
 
   updateRange(e, data) {
-    this.setState({selected_range: data})
+    let fields = this.state.fields
+    fields['selected_range'] = data
+    this.setState({fields: fields})
   }
 
   render() {
     return (
-      <div>
+      <div style={{ margin: 30 }}>
         <h1>React Form</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label for="name">Name: </label>
-            <InputText name={this.state.name} handleInput={this.handleInput} />
+            <label>Name : </label>
+            <InputText input={this.state.fields.input} handleInput={this.handleInput} placeholder={"Enter name"} name={"input"} />
+            <span className="error">{this.state.formErrors.input}</span>
           </div>
 
           <br />
 
           <div className="form-group">
-            <label for="email">Email: </label>
-            <EmailField mail={this.state.email} handleEmail={this.handleEmail} />
+            <label>Email : </label>
+            <InputText input={this.state.fields.email} handleInput={this.handleInput} placeholder={"Enter email"} name={"email"} />
+            <span className="error">{this.state.formErrors.email}</span>
           </div>
 
           <br />
 
           <div className="form-group">
-            <label for="dob">Date of Birth: </label>
-            <DateField selected_date={this.state.selected_date} handleDate={this.handleDate} />
+            <label>Date of Birth : </label>
+            <DateField selected_date={this.state.fields.selected_date} handleDate={this.handleDate} />
+            <span className="error">{this.state.formErrors.selected_date}</span>
           </div>
 
           <br />
 
           <div className="form-group">
-            <label for="gender">Select Gender: </label>
-            <RadioButton value="male" label="Male" isSelected={this.state.selected_value === "male"} handleChange={this.radioButtonChangeHandler} />
-            <RadioButton value="female" label="Female" isSelected={this.state.selected_value === "female"} handleChange={this.radioButtonChangeHandler} />
+            <label>Select Gender : </label>
+            <RadioButton value="male" label="Male" isSelected={this.state.fields.selected_radio_value === "male"} handleChange={this.handleInput} name={"selected_radio_value"} />
+            <RadioButton value="female" label="Female" isSelected={this.state.fields.selected_radio_value === "female"} handleChange={this.handleInput} name={"selected_radio_value"} />
+            <span className="error">{this.state.formErrors.selected_radio_value}</span>
           </div>
 
           <br />
 
           <div className="form-group">
-            <label for="profilepic">Upload Profile Picture: </label>
-            <FileUpload />
+            <label>Upload Profile Picture : </label>
+            <FileUpload selected_file={this.state.fields.selected_file} handleFile={this.state.handleInput} name={"selected_file"} />
+            <span className="error">{this.state.formErrors.selected_file}</span>
           </div>
-          
+
           <br />
 
           <div className="form-group">
-            <label for="education">Select Level of Education: </label>
-            <SelectField value={this.state.value} handleSelect={this.handleSelect} />
+            <label>Select Level of Education : </label>
+            <SelectField value={this.state.fields.selected_value} handleSelect={this.handleInput} name={"selected_value"} />
+            <span className="error">{this.state.formErrors.selected_value}</span>
           </div>
 
           <br />
 
-          <Range selected_range={this.props.selected_range} updateRange={this.updateRange} />
+          <div className="form-group">
+            <label>Password : </label>
+            <PasswordField password={this.state.fields.password} handlePassword={this.handleInput} name={"password"} />
+            <span className="error">{this.state.formErrors.password}</span>
+          </div>
+
           <br />
+
+          <div className="form-group">
+            <label>Confirm Password : </label>
+            <PasswordField cpassword={this.state.fields.cpassword} handlePassword={this.handleInput} name={"cpassword"} />
+            <span className="error">{this.state.formErrors.cpassword}</span>
+          </div>
+
+          <br />
+
+          <div className="form-group">
+            <label>Select Range : </label>
+            <Range selected_range={this.state.fields.selected_range} updateRange={this.updateRange} />
+            <span className="error">{this.state.formErrors.selected_range}</span>
+          </div>
+
+          <br />
+
           <input type="submit" value="Submit" />
         </form>
       </div>

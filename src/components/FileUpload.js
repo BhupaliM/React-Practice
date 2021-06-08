@@ -1,6 +1,6 @@
 function FileUpload(props) {
     return ( 
-        <input type="file" className="form-control" />
+        <input type="file" name={props.name} onChange={props.handleFile} className="form-control" required/>
     );
 }
 
