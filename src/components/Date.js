@@ -2,7 +2,7 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-class SelectGender extends React.Component {
+class Date extends React.Component {
     render() {
         return (
             <div>
@@ -25,4 +25,4 @@ class SelectGender extends React.Component {
     } 
 }
 
-export default SelectGender
+export default Date
