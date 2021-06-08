@@ -23,12 +23,13 @@ class App extends React.Component {
       selected_value: null,
       selected_range: ""
     }
+    this.baseState = this.state 
   }
 
   handleSubmit(e) {
     e.preventDefault()
     alert("Form submitted successfully");
-    this.setState({name: "", value: "", selected_date: null, selected_value: null, selected_range: ""})
+    this.setState(this.baseState)
   }
 
   handleInput(e) {
