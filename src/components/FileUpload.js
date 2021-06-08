@@ -1,11 +1,6 @@
 function FileUpload(props) {
-    return (
-        <div>
-            <label>
-                Upload File : 
-                <input type="file" required />
-            </label>
-        </div>
+    return ( 
+        <input type="file" className="form-control" />
     );
 }
 

@@ -5,22 +5,16 @@ import 'react-datepicker/dist/react-datepicker.css'
 class DateField extends React.Component {
     render() {
         return (
-            <div>
-                <div className="form-group">
-                    <label>
-                        Date of Birth : 
-                        <DatePicker 
-                            selected={this.props.selected_date}
-                            onChange={this.props.handleDate} 
-                            dateFormat="dd/MM/yyyy"
-                            maxDate = {new Date()}
-                            showYearDropdown
-                            scrollableYearDropdown
-                            required
-                        />
-                    </label>
-                </div>
-            </div>
+            <DatePicker
+                placeholderText="Choose DOB"
+                selected={this.props.selected_date}
+                onChange={this.props.handleDate}
+                dateFormat="dd/MM/yyyy"
+                maxDate = {new Date()}
+                showYearDropdown
+                scrollableYearDropdown
+                className="form-group"
+            />
         );
     } 
 }

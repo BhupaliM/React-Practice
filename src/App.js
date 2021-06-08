@@ -1,6 +1,7 @@
 import './App.css';
 import InputText from './components/InputText.js'
-import SelectGender from './components/SelectGender.js'
+import EmailField from './components/EmailField.js'
+import SelectField from './components/SelectField.js'
 import RadioButton from './components/RadioButton.js'
 import DateField from './components/DateField.js'
 import React from 'react';
@@ -11,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleInput = this.handleInput.bind(this)
+    this.handleEmail = this.handleEmail.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.radioButtonChangeHandler = this.radioButtonChangeHandler.bind(this)
     this.handleDate = this.handleDate.bind(this)
@@ -18,6 +20,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       name: "",
+      email: "",
       value: "",
       selected_date: null,
       selected_value: null,
@@ -34,6 +37,10 @@ class App extends React.Component {
 
   handleInput(e) {
     this.setState({name: e.target.value})
+  }
+
+  handleEmail(e) {
+    this.setState({email: e.target.value})
   }
 
   handleSelect(e) {
@@ -54,26 +61,57 @@ class App extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <br />
-        <InputText name={this.state.name} handleInput={this.handleInput} />
-        <br />
-        <SelectGender value={this.state.value} handleSelect={this.handleSelect} />
-        <br />
-        <label>
-          Do you have further study plans: 
-          <RadioButton value="yes" label="Yes" isSelected={this.state.selected_value === "yes"} handleChange={this.radioButtonChangeHandler} />
-          <RadioButton value="no" label="No" isSelected={this.state.selected_value === "no"} handleChange={this.radioButtonChangeHandler} />
-        </label>
-        <br />
-        <DateField selected_date={this.state.selected_date} handleDate={this.handleDate} />
-        <br />
-        <FileUpload />
-        <br />
-        <Range selected_range={this.props.selected_range} updateRange={this.updateRange} />
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <h1>React Form</h1>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label for="name">Name: </label>
+            <InputText name={this.state.name} handleInput={this.handleInput} />
+          </div>
+
+          <br />
+
+          <div className="form-group">
+            <label for="email">Email: </label>
+            <EmailField mail={this.state.email} handleEmail={this.handleEmail} />
+          </div>
+
+          <br />
+
+          <div className="form-group">
+            <label for="dob">Date of Birth: </label>
+            <DateField selected_date={this.state.selected_date} handleDate={this.handleDate} />
+          </div>
+
+          <br />
+
+          <div className="form-group">
+            <label for="gender">Select Gender: </label>
+            <RadioButton value="male" label="Male" isSelected={this.state.selected_value === "male"} handleChange={this.radioButtonChangeHandler} />
+            <RadioButton value="female" label="Female" isSelected={this.state.selected_value === "female"} handleChange={this.radioButtonChangeHandler} />
+          </div>
+
+          <br />
+
+          <div className="form-group">
+            <label for="profilepic">Upload Profile Picture: </label>
+            <FileUpload />
+          </div>
+          
+          <br />
+
+          <div className="form-group">
+            <label for="education">Select Level of Education: </label>
+            <SelectField value={this.state.value} handleSelect={this.handleSelect} />
+          </div>
+
+          <br />
+
+          <Range selected_range={this.props.selected_range} updateRange={this.updateRange} />
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     );
   }
 }
