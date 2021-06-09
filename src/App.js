@@ -8,7 +8,6 @@ import RadioButton from './components/RadioButton.js'
 import DateField from './components/DateField.js'
 import FileUpload from './components/FileUpload';
 import PasswordField from './components/PasswordField.js'
-import Range from './components/Range.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,11 +22,11 @@ class App extends React.Component {
         email: "",
         selected_value: "",
         selected_file: "",
-        selected_date: null,
-        selected_radio_value: null,
+        selected_date: "",
+        selected_radio_value: "",
         password: "",
         cpassword: "",
-        selected_range: null
+        selected_range: ""
       },
       formErrors: {
         input: '',
@@ -101,9 +100,9 @@ class App extends React.Component {
     this.setState({fields: fields});
   }
 
-  handleDate(date) {
+  handleDate(e) {
     let fields = this.state.fields
-    fields['selected_date'] = date
+    fields['selected_date'] = e.target.value
     this.setState({fields: fields})
   }
 
@@ -179,14 +178,6 @@ class App extends React.Component {
             <label>Confirm Password : </label>
             <PasswordField cpassword={this.state.fields.cpassword} handlePassword={this.handleInput} name={"cpassword"} />
             <span className="error">{this.state.formErrors.cpassword}</span>
-          </div>
-
-          <br />
-
-          <div className="form-group">
-            <label>Select Range : </label>
-            <Range selected_range={this.state.fields.selected_range} updateRange={this.updateRange} />
-            <span className="error">{this.state.formErrors.selected_range}</span>
           </div>
 
           <br />
