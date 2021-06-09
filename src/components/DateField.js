@@ -16,7 +16,7 @@ class DateField extends React.Component {
             //     className="form-group"
             //     required
             // />
-            <input type="date" value={this.props.selected_date} onChange={this.props.handleDate} className="form-control" required/>
+            <input type="date" name={this.props.name} value={this.props.selected_date} onChange={this.props.handleDate} className="form-control" required/>
         );
     } 
 }

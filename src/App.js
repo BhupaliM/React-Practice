@@ -13,7 +13,6 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleInput = this.handleInput.bind(this)
-    this.handleDate = this.handleDate.bind(this)
     this.updateRange = this.updateRange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
@@ -67,6 +66,11 @@ class App extends React.Component {
       errors['cpassword'] = "Password does not match"
     }
 
+    if(new Date().toISOString().split('T')[0] < fields['selected_date']) {
+      isFormValid = false
+      errors['selected_date'] = "Date cannot be greater than today's date"
+    }
+
     this.setState({formErrors: errors})
     return isFormValid
   }
@@ -83,11 +87,11 @@ class App extends React.Component {
         email: "",
         selected_value: "",
         selected_file: "",
-        selected_date: null,
-        selected_radio_value: null,
+        selected_date: "",
+        selected_radio_value: "",
         password: "",
         cpassword: "",
-        selected_range: null
+        selected_range: ""
       }
       this.setState({fields: reset_fields})
     }
@@ -98,12 +102,6 @@ class App extends React.Component {
     let isFile = e.target.type === "file"
     fields[e.target.name] = isFile ? e.target.files[0] : e.target.value
     this.setState({fields: fields});
-  }
-
-  handleDate(e) {
-    let fields = this.state.fields
-    fields['selected_date'] = e.target.value
-    this.setState({fields: fields})
   }
 
   updateRange(e, data) {
@@ -135,7 +133,7 @@ class App extends React.Component {
 
           <div className="form-group">
             <label>Date of Birth : </label>
-            <DateField selected_date={this.state.fields.selected_date} handleDate={this.handleDate} />
+            <DateField selected_date={this.state.fields.selected_date} handleDate={this.handleInput} name={"selected_date"}/>
             <span className="error">{this.state.formErrors.selected_date}</span>
           </div>
 
@@ -176,7 +174,7 @@ class App extends React.Component {
 
           <div className="form-group">
             <label>Confirm Password : </label>
-            <PasswordField cpassword={this.state.fields.cpassword} handlePassword={this.handleInput} name={"cpassword"} />
+            <PasswordField password={this.state.fields.cpassword} handlePassword={this.handleInput} name={"cpassword"} />
             <span className="error">{this.state.formErrors.cpassword}</span>
           </div>
 
