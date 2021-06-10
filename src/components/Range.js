@@ -1,6 +1,5 @@
 import React from 'react'
 import { Slider } from '@material-ui/core'
-import '../App.css'
 
 class Range extends React.Component {
     render() {
