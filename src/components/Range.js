@@ -1,10 +1,11 @@
 import React from 'react'
 import { Slider } from '@material-ui/core'
+import '../App.css'
 
 class Range extends React.Component {
     render() {
         return (
-            <div style={{width: 300, margin:30}}>
+            <div className="slider-class">
                 <Slider value={this.props.value} onChange={this.props.updateRange} required/>
             </div>
         );

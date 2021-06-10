@@ -19,24 +19,24 @@ class App extends React.Component {
       fields: {
         input: "",
         email: "",
-        selected_value: "",
-        selected_file: "",
-        selected_date: "",
-        selected_radio_value: "",
+        selectedValue: "",
+        selectedFile: "",
+        selectedDate: "",
+        selectedRadioValue: "",
         password: "",
         cpassword: "",
-        selected_range: ""
+        selectedRange: ""
       },
       formErrors: {
         input: '',
         email: '',
-        selected_value: '',
-        selected_file: '',
-        selected_date: '',
-        selected_radio_value: '',
+        selectedValue: '',
+        selectedFile: '',
+        selectedDate: '',
+        selectedRadioValue: '',
         password: '',
         cpassword: '',
-        selected_range: ''
+        selectedRange: ''
       }
     }
   }
@@ -46,9 +46,9 @@ class App extends React.Component {
     let fields = this.state.fields
     let errors = {}
 
-    if(!fields['selected_radio_value']) {
+    if(!fields['selectedRadioValue']) {
       isFormValid = false
-      errors['selected_radio_value'] = "This field is required"
+      errors['selectedRadioValue'] = "This field is required"
     }
 
     if(!fields['email'].match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
@@ -66,9 +66,9 @@ class App extends React.Component {
       errors['cpassword'] = "Password does not match"
     }
 
-    if(new Date().toISOString().split('T')[0] < fields['selected_date']) {
+    if(new Date().toISOString().split('T')[0] < fields['selectedDate']) {
       isFormValid = false
-      errors['selected_date'] = "Date cannot be greater than today's date"
+      errors['selectedDate'] = "Date cannot be greater than today's date"
     }
 
     this.setState({formErrors: errors})
@@ -85,13 +85,13 @@ class App extends React.Component {
       let reset_fields = {
         input: "",
         email: "",
-        selected_value: "",
-        selected_file: "",
-        selected_date: "",
-        selected_radio_value: "",
+        selectedValue: "",
+        selectedFile: "",
+        selectedDate: "",
+        selectedRadioValue: "",
         password: "",
         cpassword: "",
-        selected_range: ""
+        selectedRange: ""
       }
       this.setState({fields: reset_fields})
     }
@@ -106,13 +106,13 @@ class App extends React.Component {
 
   updateRange(e, data) {
     let fields = this.state.fields
-    fields['selected_range'] = data
+    fields['selectedRange'] = data
     this.setState({fields: fields})
   }
 
   render() {
     return (
-      <div style={{ margin: 30 }}>
+      <div className="form">
         <h1>React Form</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -133,33 +133,33 @@ class App extends React.Component {
 
           <div className="form-group">
             <label>Date of Birth : </label>
-            <DateField selected_date={this.state.fields.selected_date} handleDate={this.handleInput} name={"selected_date"}/>
-            <span className="error">{this.state.formErrors.selected_date}</span>
+            <DateField selectedDate={this.state.fields.selectedDate} handleDate={this.handleInput} name={"selectedDate"}/>
+            <span className="error">{this.state.formErrors.selectedDate}</span>
           </div>
 
           <br />
 
           <div className="form-group">
             <label>Select Gender : </label>
-            <RadioButton value="male" label="Male" isSelected={this.state.fields.selected_radio_value === "male"} handleChange={this.handleInput} name={"selected_radio_value"} />
-            <RadioButton value="female" label="Female" isSelected={this.state.fields.selected_radio_value === "female"} handleChange={this.handleInput} name={"selected_radio_value"} />
-            <span className="error">{this.state.formErrors.selected_radio_value}</span>
+            <RadioButton value="male" label="Male" isSelected={this.state.fields.selectedRadioValue === "male"} handleChange={this.handleInput} name={"selectedRadioValue"} />
+            <RadioButton value="female" label="Female" isSelected={this.state.fields.selectedRadioValue === "female"} handleChange={this.handleInput} name={"selectedRadioValue"} />
+            <span className="error">{this.state.formErrors.selectedRadioValue}</span>
           </div>
 
           <br />
 
           <div className="form-group">
             <label>Upload Profile Picture : </label>
-            <FileUpload selected_file={this.state.fields.selected_file} handleFile={this.state.handleInput} name={"selected_file"} />
-            <span className="error">{this.state.formErrors.selected_file}</span>
+            <FileUpload selectedFile={this.state.fields.selectedFile} handleFile={this.state.handleInput} name={"selectedFile"} />
+            <span className="error">{this.state.formErrors.selectedFile}</span>
           </div>
 
           <br />
 
           <div className="form-group">
             <label>Select Level of Education : </label>
-            <SelectField value={this.state.fields.selected_value} handleSelect={this.handleInput} name={"selected_value"} />
-            <span className="error">{this.state.formErrors.selected_value}</span>
+            <SelectField value={this.state.fields.selectedValue} handleSelect={this.handleInput} name={"selectedValue"} />
+            <span className="error">{this.state.formErrors.selectedValue}</span>
           </div>
 
           <br />
