@@ -12,8 +12,6 @@ import PasswordField from './components/PasswordField.js'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.handleInput = this.handleInput.bind(this)
-    this.updateRange = this.updateRange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       fields: {
@@ -82,7 +80,7 @@ class App extends React.Component {
     else {
       console.log(this.state)
       alert("Form submitted successfully");
-      let reset_fields = {
+      let resetFields = {
         input: "",
         email: "",
         selectedValue: "",
@@ -93,18 +91,18 @@ class App extends React.Component {
         cpassword: "",
         selectedRange: ""
       }
-      this.setState({fields: reset_fields})
+      this.setState({fields: resetFields})
     }
   }
 
-  handleInput(e) {
+  handleInput = (e) => {
     let fields = this.state.fields
     let isFile = e.target.type === "file"
     fields[e.target.name] = isFile ? e.target.files[0] : e.target.value
     this.setState({fields: fields});
   }
 
-  updateRange(e, data) {
+  updateRange = (e, data) => {
     let fields = this.state.fields
     fields['selectedRange'] = data
     this.setState({fields: fields})
@@ -150,7 +148,7 @@ class App extends React.Component {
 
           <div className="form-group">
             <label>Upload Profile Picture : </label>
-            <FileUpload selectedFile={this.state.fields.selectedFile} handleFile={this.state.handleInput} name={"selectedFile"} />
+            <FileUpload selectedFile={this.state.fields.selectedFile} handleFile={this.handleInput} name={"selectedFile"} />
             <span className="error">{this.state.formErrors.selectedFile}</span>
           </div>
 
