@@ -1,3 +1,4 @@
+import './style.css'
 import React from 'react';
 
 import InputText from '../../components/InputText.js'
@@ -6,7 +7,7 @@ import RadioButton from '../../components/RadioButton.js'
 import DateField from '../../components/DateField.js'
 import FileUpload from '../../components/FileUpload';
 import PasswordField from '../../components/PasswordField.js'
-import Table from '../../containers/Table'
+import Table from './components/Table.js'
 
 class Form extends React.Component {
   constructor(props) {
@@ -173,7 +174,7 @@ class Form extends React.Component {
             </div>
             <div className="col-lg-7">
               <label className="label-class">User Data</label>
-              <Table userData={this.state.userData} />
+              <Table userData={JSON.stringify(this.state.userData)} />
             </div>
           </div>
         </form>
