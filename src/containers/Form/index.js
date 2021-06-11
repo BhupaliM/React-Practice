@@ -99,7 +99,11 @@ class Form extends React.Component {
   handleInput = (e) => {
     let fields = this.state.fields
     let isFile = e.target.type === "file"
-    fields[e.target.name] = isFile ? URL.createObjectURL(e.target.files[0]) : e.target.value
+    let inputFile = ''
+    if (isFile && e.target.files[0]) {
+        inputFile = URL.createObjectURL(e.target.files[0])
+    }
+    fields[e.target.name] = isFile ? inputFile : e.target.value
     this.setState({fields: fields});
   }
 
