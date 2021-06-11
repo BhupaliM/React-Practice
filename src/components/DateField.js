@@ -3,22 +3,22 @@ import React from 'react'
 // import 'react-datepicker/dist/react-datepicker.css'
 
 class DateField extends React.Component {
-    render() {
-        return (
-            // <DatePicker
-            //     placeholderText="Choose DOB"
-            //     selected={this.props.selectedDate}
-            //     onChange={this.props.handleDate}
-            //     dateFormat="dd/MM/yyyy"
-            //     maxDate = {new Date()}
-            //     showYearDropdown
-            //     scrollableYearDropdown
-            //     className="form-group"
-            //     required
-            // />
-            <input type="date" name={this.props.name} value={this.props.selectedDate} onChange={this.props.handleDate} className="form-control" required/>
-        );
-    } 
+	render() {
+		return (
+			// <DatePicker
+			//     placeholderText="Choose DOB"
+			//     selected={this.props.selectedDate}
+			//     onChange={this.props.handleDate}
+			//     dateFormat="dd/MM/yyyy"
+			//     maxDate = {new Date()}
+			//     showYearDropdown
+			//     scrollableYearDropdown
+			//     className="form-group"
+			//     required
+			// />
+			<input type="date" name={this.props.name} value={this.props.selectedDate} onChange={this.props.handleDate} className="form-control" required />
+		);
+	}
 }
 
 export default DateField
