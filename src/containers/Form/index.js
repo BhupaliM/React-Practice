@@ -73,6 +73,7 @@ class Form extends React.Component {
 		this.setState({ formErrors: errors })
 		return isFormValid
 	}
+
 	handleSubmit(e) {
 		e.preventDefault()
 		if (!this.handleValidation()) {
@@ -114,13 +115,36 @@ class Form extends React.Component {
 		this.setState({ fields: fields })
 	}
 
+	handleAction = (e, i) => {
+		let userData = JSON.parse(JSON.stringify(this.state.userData))
+		let fields = JSON.parse(JSON.stringify(this.state.fields))
+
+		if(e.target.name === "edit") {
+			fields = {
+				input: userData[i].input,
+				email: userData[i].email,
+				selectedValue: userData[i].selectedValue,
+				selectedFile: userData[i].selectedFile,
+				selectedDate: userData[i].selectedDate,
+				selectedRadioValue: userData[i].selectedRadioValue,
+				password: userData[i].password,
+				cpassword: userData[i].cpassword,
+				selectedRange: userData[i].selectedRange
+			}
+		}
+		userData.splice(i, 1);
+		this.setState({
+			fields: fields, userData: userData
+		});
+	}
+
 	render() {
 		return (
 			<div className="form">
-				<form onSubmit={this.handleSubmit}>
-					<div className="row">
-						<div className="col-lg-5">
-							<label className="label-class">React Form</label>
+				<div className="row">
+					<div className="col-lg-5">
+						<label className="label-class">React Form</label>
+						<form onSubmit={this.handleSubmit}>
 							<div>
 								<label>Name : </label>
 								<InputText input={this.state.fields.input} handleInput={this.handleInput} placeholder={"Enter name"} name={"input"} />
@@ -171,13 +195,13 @@ class Form extends React.Component {
 							</div>
 
 							<input type="submit" value="Submit" className="btn btn-outline-success" />
-						</div>
-						<div className="col-lg-7">
-							<label className="label-class">User Data</label>
-							<Table userData={JSON.stringify(this.state.userData)} />
-						</div>
+						</form>
 					</div>
-				</form>
+					<div className="col-lg-7">
+						<label className="label-class">User Data</label>
+						<Table userData={JSON.stringify(this.state.userData)} handleAction={this.handleAction} />
+					</div>
+				</div>
 			</div>
 		);
 	}

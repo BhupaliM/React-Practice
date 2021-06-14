@@ -23,6 +23,7 @@ class Table extends React.Component {
 						gender={data.selectedRadioValue}
 						edu={data.selectedValue}
 						pic={data.selectedFile}
+						handleAction={(e) => nextProps.handleAction(e, i)}
 					/>
 				)
 			});
