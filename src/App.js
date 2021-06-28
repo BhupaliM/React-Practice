@@ -1,5 +1,5 @@
 import './App.css';
-import Form from './containers/Form/components/Form.js'
+import Form from './containers/Form'
 
 function App(props) {
 	return (

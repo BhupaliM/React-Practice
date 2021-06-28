@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import '../style.css';
-import store from '../../../store.js';
-import { addRecord, editRecord } from '../../../actions/TableActions.js';
+import 'style.css';
+import store from '../../store.js';
+import { addRecord, editRecord } from '../../actions/TableActions.js';
 
-import InputText from '../../../components/InputText.js'
-import SelectField from '../../../components/SelectField.js'
-import RadioButton from '../../../components/RadioButton.js'
-import DateField from '../../../components/DateField.js'
-import FileUpload from '../../../components/FileUpload';
-import PasswordField from '../../../components/PasswordField.js'
-import Table from './Table.js';
+import InputText from '../../components/InputText.js'
+import SelectField from '../../components/SelectField.js'
+import RadioButton from '../../components/RadioButton.js'
+import DateField from '../../components/DateField.js'
+import FileUpload from '../../components/FileUpload';
+import PasswordField from '../../components/PasswordField.js'
+import Table from './components/Table.js';
 
 class Form extends React.Component {
   constructor(props) {
