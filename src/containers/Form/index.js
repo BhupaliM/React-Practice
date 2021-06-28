@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import 'style.css';
+import './style.css';
 import store from '../../store.js';
 import { addRecord, editRecord } from '../../actions/TableActions.js';
 
