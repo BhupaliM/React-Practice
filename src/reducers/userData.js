@@ -1,7 +1,6 @@
 import { ADD_RECORD, DELETE_RECORD, EDIT_RECORD } from '../constants/actionTypes.js';
 const initialState = {
-  allIDs: [],
-  recordByIDs: {},
+  recordByIDs: [],
   currentFields: {}
 }
 
@@ -11,11 +10,10 @@ const userData = (state = initialState, action) => {
       const { id, data } = action.payload;
       return {
         ...state,
-        allIDs: [...state.allIDs, id],
-        recordByIDs: {
+        recordByIDs: [
           ...state.recordByIDs,
-          [id]: data,
-        },
+          { [id]: data },
+        ],
         currentFields: {}
       }
     }
@@ -23,15 +21,15 @@ const userData = (state = initialState, action) => {
     case DELETE_RECORD: {
       return {
         ...state,
-        allIDs: state.allIDs.filter((index) => index !== action.payload)
+        recordByIDs: state.recordByIDs.filter((record) => Object.keys(record)[0] !== action.payload)
       }
     }
 
     case EDIT_RECORD: {
       return {
         ...state,
-        allIDs: state.allIDs.filter((index) => index !== action.payload),
-        currentFields: state.recordByIDs[action.payload],
+        currentFields: state.recordByIDs.filter((record) => Object.keys(record)[0] === action.payload)[0][action.payload],
+        recordByIDs: state.recordByIDs.filter((record) => Object.keys(record)[0] !== action.payload)
       }
     }
 

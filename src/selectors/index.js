@@ -1,5 +1,9 @@
-export const getRecordByID = (store, id) => ({ ...store.userData.recordByIDs[id], id })
-
-export const getRecordList = store => store.userData.allIDs.map(id => getRecordByID(store, id))
-
-export const getCurrentFields = store => store.userData.currentFields
+export function getRecordList(store) {
+  var arr = []
+  for (var each_record in store.userData.recordByIDs) {
+    for (var id in store.userData.recordByIDs[each_record]) {
+      arr.push({ ...store.userData.recordByIDs[each_record][id], id })
+    }
+  }
+  return arr
+}

@@ -118,7 +118,6 @@ class Form extends React.Component {
   }
 
   handleEdit = (id) => {
-    console.log(id)
     this.props.editRecord(id)
     const currentState = store.getState()
     this.setState({

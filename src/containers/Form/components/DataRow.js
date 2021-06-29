@@ -17,7 +17,7 @@ function DataRow(props) {
 			<td>{props.record.email}</td>
 			<td>{props.record.selectedDate}</td>
 			<td>{props.record.selectedRadioValue}</td>
-			<td>{props.selectedValue}</td>
+			<td>{props.record.selectedValue}</td>
 			<td><img className="box-image" src={props.record.selectedFile} alt='' /></td>
 			<td><button name="edit" onClick={onClick}>Edit</button></td>
 			<td><button name="delete" onClick={onClick}>Delete</button></td>
