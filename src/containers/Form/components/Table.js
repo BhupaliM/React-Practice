@@ -28,9 +28,8 @@ function Table(props) {
 	)
 }
 
-const mapStateToProps = state => {
-	const dataRows = state.userData.recordByIDs
-	return { dataRows }
-}
+const mapStateToProps = state => ({
+	dataRows: state.userData.recordByIDs
+})
 
 export default connect(mapStateToProps, null)(Table)
