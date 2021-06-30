@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import { getRecordList } from '../../../selectors'
 import DataRow from './DataRow.js';
 
 function Table(props) {
@@ -30,7 +29,7 @@ function Table(props) {
 }
 
 const mapStateToProps = state => {
-	const dataRows = getRecordList(state)
+	const dataRows = state.userData.recordByIDs
 	return { dataRows }
 }
 
